@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PlanetsDB</string>
+
+    <!-- Action names -->
+    <string name="action_add_planet">Add planet</string>
+    <string name="delete_single_planet">Delete planet</string>
+
+    <!-- TextView texts -->
+    <string name="diameter">Equatorial diameter, km:</string>
+    <string name="distance">Distance from Earth, km:</string>
+    <string name="atmosphere">Atmosphere:</string>
+    <string name="discoverer">Discovered by:</string>
+    <string name="planet_name">Planet name:</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="insert">Insert</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="title_activity_edit_planet">Edit Planet</string>
+    <string name="title_activity_insert_planet">Insert Planet</string>
+    <string name="title_activity_delete_planet">Delete Planet</string>
+
+    <!-- This is a confirmation message in a popup dialog that appears when the
+     user has asked to delete a planet. The user still has a chance to cancel
+     this operation. -->
+    <string name="delete_this_planet_title">Delete this event?</string>
+
+    <string name="loading">Loading…</string>
+    <string name="planet_created">Planet created</string>
+    <string name="planet_saved">Planet saved</string>
+    <string name="planet_deleted">Planet deleted</string>
+
+    <!-- Errors -->
+    <string name="empty_planet_error">Empty planet</string>
+    <string name="empty_name_error">Please enter planet name</string>
+    <string name="repeated_name_error">There is already planet with such name</string>
+    <string name="distance_error">Distance: wrong format</string>
+    <string name="diameter_error">Diameter: wrong format</string>
+    <string name="db_error">Sorry there is error in database</string>
+    <string name="unknown_error">Unknown errors</string>
+    <string name="no_contact_found_error">No contact found</string>
+    <string name="planet_create_error">Planet not created</string>
+    <string name="planet_save_error">Planet not saved</string>
+
+</resources>

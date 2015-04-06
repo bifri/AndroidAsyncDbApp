@@ -1,0 +1,89 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/list_textView_planetName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/list_item_padding"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_size_xlarge"
+        android:textColor="@color/bluedark">
+    </TextView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp">
+
+        <TextView
+            android:id="@+id/list_textView_diameterTitle"
+            style="@style/ListItemTextViewStyle"
+            android:text="@string/diameter">
+        </TextView>
+
+        <TextView
+            android:id="@+id/list_textView_diameter"
+            style="@style/ListItemTextViewStyle"
+            android:layout_toEndOf="@+id/list_textView_diameterTitle"
+            android:layout_toRightOf="@+id/list_textView_diameterTitle">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/list_textView_distanceTitle"
+            style="@style/ListItemTextViewStyle"
+            android:layout_below="@+id/list_textView_diameter"
+            android:text="@string/distance">
+        </TextView>
+
+        <TextView
+            android:id="@+id/list_textView_distance"
+            style="@style/ListItemTextViewStyle"
+            android:layout_below="@+id/list_textView_diameter"
+            android:layout_toEndOf="@+id/list_textView_distanceTitle"
+            android:layout_toRightOf="@+id/list_textView_distanceTitle"
+            android:layout_alignStart="@+id/list_textView_distance"
+            android:layout_alignLeft="@+id/list_textView_distance">
+        </TextView>
+
+        <TextView
+            android:id="@+id/list_textView_atmosphereTitle"
+            style="@style/ListItemTextViewStyle"
+            android:layout_below="@+id/list_textView_distance"
+            android:text="@string/atmosphere">
+        </TextView>
+
+        <TextView
+            android:id="@+id/list_textView_atmosphere"
+            style="@style/ListItemTextViewStyle"
+            android:layout_below="@+id/list_textView_distance"
+            android:layout_toEndOf="@+id/list_textView_atmosphereTitle"
+            android:layout_toRightOf="@+id/list_textView_atmosphereTitle"
+            android:layout_alignStart="@+id/list_textView_distance"
+            android:layout_alignLeft="@+id/list_textView_distance">
+        </TextView>
+
+        <TextView
+            android:id="@+id/list_textView_discovererTitle"
+            style="@style/ListItemTextViewStyle"
+            android:layout_below="@+id/list_textView_atmosphere"
+            android:text="@string/discoverer">
+        </TextView>
+
+        <TextView
+            android:id="@+id/list_textView_discoverer"
+            style="@style/ListItemTextViewStyle"
+            android:layout_below="@+id/list_textView_atmosphere"
+            android:layout_toEndOf="@+id/list_textView_discoverer"
+            android:layout_toRightOf="@+id/list_textView_discoverer"
+            android:layout_alignStart="@+id/list_textView_atmosphere"
+            android:layout_alignLeft="@+id/list_textView_atmosphere">
+        </TextView>
+
+    </RelativeLayout>
+</LinearLayout>

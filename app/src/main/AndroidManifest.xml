@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ai.planetsdb" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.EditPlanetActivity"
+            android:label="@string/title_activity_edit_planet"
+            android:parentActivityName=".activity.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.com.ai.planetsdb.provider.planets" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/vnd.com.ai.planetsdb.provider.planets" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.DELETE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.com.ai.planetsdb.provider.planets" />
+            </intent-filter>
+
+        </activity>
+
+        <provider
+            android:name=".provider.PlanetsProvider"
+            android:authorities="com.ai.planetsdb.provider"
+            android:exported="false" >
+        </provider>
+
+        <!-- CRUD service for a planet -->
+        <service
+            android:name=".service.AsyncQueryServiceHelper"
+            android:exported="false">
+        </service>
+
+        <!-- CRUD service for a planet -->
+        <service
+            android:name=".service.PlanetSaveService"
+            android:exported="false">
+        </service>
+
+    </application>
+
+</manifest>
