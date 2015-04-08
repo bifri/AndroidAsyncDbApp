@@ -15,15 +15,6 @@ import com.ai.planetsdb.util.Utils;
 
 /**
  * A helper class for deleting planets.
- *
- * <p>
- * To use this class, create an instance, passing in the parent activity
- * and a boolean that determines if the parent activity should exit if the
- * event is deleted.  Then to use the instance, call one of the
- * {@link delete()} methods on this class.
- *
- * An instance of this class may be created once and reused (by calling
- * {@link #delete()} multiple times).
  */
 public class DeletePlanetHelper {
 
@@ -41,6 +32,37 @@ public class DeletePlanetHelper {
 
     public DeletePlanetHelper(EditPlanetActivity context) {
         mContext = context;
+    }
+
+    /**
+     * Does the required processing for deleting a planet. This method
+     * takes a {@link com.ai.planetsdb.model.PlanetModel} object.
+     * The required fields are:
+     * <p/>
+     * <ul>
+     * <li> Planet._ID </li>
+     * </ul>
+     * <p/>
+     * If the planet no longer exists in the db this will still prompt
+     * the user but will return without modifying the db after the query
+     * returns.
+     *
+     * @param cursor the database cursor containing the required fields
+     */
+    public void delete(PlanetModel model) {
+        mModel = model;
+
+        AlertDialog dialog = new AlertDialog.Builder(mContext)
+                .setMessage(R.string.delete_this_planet_title)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setNegativeButton(R.string.cancel, mCancelDialogListener)
+                .setPositiveButton(R.string.ok, mDeleteDialogListener)
+                .create();
+        dialog.show();
+    }
+
+    public void registerDeleteNotifyListener(DeleteNotifyListener listener) {
+        mDeleteStartedListener = listener;
     }
 
     /**
@@ -75,38 +97,5 @@ public class DeletePlanetHelper {
         if (mDeleteStartedListener != null) {
             mDeleteStartedListener.onDeleteStarted();
         }
-    }
-
-    /**
-     * Does the required processing for deleting a planet. This method
-     * takes a {@link com.ai.planetsdb.model.PlanetModel} object, which must have a valid
-     * uri for referencing the planet in the database and have the required
-     * fields listed below.
-     * The required fields are:
-     * <p/>
-     * <ul>
-     * <li> Planet._ID </li>
-     * </ul>
-     * <p/>
-     * If the planet no longer exists in the db this will still prompt
-     * the user but will return without modifying the db after the query
-     * returns.
-     *
-     * @param cursor the database cursor containing the required fields
-     */
-    public void delete(PlanetModel model) {
-        mModel = model;
-
-        AlertDialog dialog = new AlertDialog.Builder(mContext)
-                .setMessage(R.string.delete_this_planet_title)
-                .setIconAttribute(android.R.attr.alertDialogIcon)
-                .setNegativeButton(R.string.cancel, mCancelDialogListener)
-                .setPositiveButton(R.string.ok, mDeleteDialogListener)
-                .create();
-        dialog.show();
-    }
-
-    public void registerDeleteNotifyListener(DeleteNotifyListener listener) {
-        mDeleteStartedListener = listener;
     }
 }

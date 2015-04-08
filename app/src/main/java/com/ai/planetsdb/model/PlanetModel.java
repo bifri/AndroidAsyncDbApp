@@ -47,13 +47,13 @@ public class PlanetModel implements Parcelable {
             mDiscoverer = discoverer;
         }
 
-        int atmoshpere = intent.getIntExtra(PlanetsContract.HAS_ATMOSPHERE, -1);
-        if (atmoshpere != -1) {
-            mHasAtmosphere = atmoshpere > 0;
+        int atmosphere = intent.getIntExtra(PlanetsContract.HAS_ATMOSPHERE, -1);
+        if (atmosphere != -1) {
+            mHasAtmosphere = atmosphere > 0;
         }
     }
 
-    public synchronized void clear() {
+    public void clear() {
 //      mUri = null;
         mId = -1;
         mName = null;
@@ -63,7 +63,7 @@ public class PlanetModel implements Parcelable {
         mDiscoverer = null;
     }
 
-    public synchronized void consume(PlanetModel model) {
+    public void consume(PlanetModel model) {
 //      mUri = model.mUri;
         mId = model.mId;
         mName = model.mName;
@@ -170,7 +170,7 @@ public class PlanetModel implements Parcelable {
             return false;
         }
 
-/*        if (mUri == null) {
+/*      if (mUri == null) {
             if (that.mUri != null) {
                 return false;
             }
@@ -182,7 +182,7 @@ public class PlanetModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeString(mUri);
+//      dest.writeString(mUri);
         dest.writeLong(mId);
         dest.writeString(mName);
         dest.writeDouble(mDiameter);

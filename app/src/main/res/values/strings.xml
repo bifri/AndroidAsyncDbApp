@@ -3,6 +3,11 @@
 
     <string name="app_name">PlanetsDB</string>
 
+    <!-- Activity names -->
+    <string name="title_edit_planet">Edit planet</string>
+    <string name="title_insert_planet">Insert planet</string>
+    <string name="title_delete_planet">Delete planet</string>
+
     <!-- Action names -->
     <string name="action_add_planet">Add planet</string>
     <string name="delete_single_planet">Delete planet</string>

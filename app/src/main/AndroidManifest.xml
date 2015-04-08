@@ -19,8 +19,7 @@
 
         <activity
             android:name=".activity.EditPlanetActivity"
-            android:label="@string/title_activity_edit_planet"
-            android:parentActivityName=".activity.MainActivity" >
+            android:label="@string/title_activity_edit_planet" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
@@ -49,12 +48,6 @@
             android:authorities="com.ai.planetsdb.provider"
             android:exported="false" >
         </provider>
-
-        <!-- CRUD service for a planet -->
-        <service
-            android:name=".service.AsyncQueryServiceHelper"
-            android:exported="false">
-        </service>
 
         <!-- CRUD service for a planet -->
         <service

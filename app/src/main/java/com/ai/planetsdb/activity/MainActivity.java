@@ -25,11 +25,6 @@ import com.ai.planetsdb.provider.PlanetsContract;
 
 public class MainActivity extends ListActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
-    //TODO: add Javadoc comments to methods and classes
-    //TODO: remove warnings
-    //TODO: check & change method & field visibility if needed
-    //TODO: change placement of methods to logical
-    //TODO: write readme for githubcom
 
     @SuppressWarnings("UnusedDeclaration")
     private static final String TAG = MainActivity.class.getSimpleName();

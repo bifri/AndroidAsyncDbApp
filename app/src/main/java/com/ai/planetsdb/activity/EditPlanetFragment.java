@@ -31,11 +31,6 @@ public class EditPlanetFragment extends Fragment {
     private static final String TAG = EditPlanetFragment.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-//    private static final String BUNDLE_KEY_ACTIVITY_ID = "activityId";
-//    private static final String BUNDLE_KEY_IS_EDIT_ENABLED = "isEditEnabled";
-//    private static final String BUNDLE_KEY_IS_INIT_DATA_LOADED = "isInitDataLoaded";
-//    private static final String BUNDLE_KEY_INIT_PLANET_NAME = "initialPlanetName";
-
     public static final String ARGUMENT1 = "arg1";
     public static final String ARGUMENT2 = "arg2";
 
@@ -47,25 +42,30 @@ public class EditPlanetFragment extends Fragment {
 
     // Just for possible extensions in future
     private static final int TOKEN_PLANET = 1;
-
     private static final int TOKEN_ALL = TOKEN_PLANET;
-    private static final int TOKEN_UNITIALIZED = 1 << 31;
+    private static final int TOKEN_UNINITIALIZED = 1 << 31;
 
     /**
      * A bitfield of TOKEN_* to keep track which query hasn't been completed
      * yet. Once all queries have returned, the model can be applied to the
      * view. (Just for possible extension in future).
      */
-    private int mOutstandingQueries = TOKEN_UNITIALIZED;
+    private int mOutstandingQueries = TOKEN_UNINITIALIZED;
     private final Object queryLock = new Object();
 
-    EditPlanetHelper mHelper;
-    PlanetModel mModel, mOriginalModel;
-    PlanetModel mRestoreModel, mRestoreOriginalModel;
-    EditPlanetView mView;
-    QueryHandler mHandler;
+    private EditPlanetHelper mHelper;
+    private PlanetModel mModel, mOriginalModel;
+    private PlanetModel mRestoreModel, mRestoreOriginalModel;
+    private EditPlanetView mView;
+    private QueryHandler mHandler;
 
-    int mModification = Utils.MODIFY_UNINITIALIZED;
+    // When edit view started it has status MODIFY_UNINITIALIZED till
+    // all views are filled with initial data by worker thread
+    private int mModification = Utils.MODIFY_UNINITIALIZED;
+
+    // False when positive button is pressed and view waits
+    // for update from worker thread
+    private boolean mIsEditable = true;
 
     private EventInfo mEvent;
 
@@ -75,7 +75,6 @@ public class EditPlanetFragment extends Fragment {
 
     @SuppressWarnings("unused")
     private boolean mSaveOnDetach = true;
-    private boolean mIsEditable = true;
 
     public EditPlanetFragment() {
     }
@@ -92,7 +91,8 @@ public class EditPlanetFragment extends Fragment {
 
         mActivity = (EditPlanetActivity) activity;
         mHelper = new EditPlanetHelper((EditPlanetActivity) activity);
-        mHandler = new QueryHandler(new WeakReference<>(queryListener), activity.getContentResolver());
+        mHandler = new QueryHandler(new WeakReference<>(queryListener),
+                activity.getContentResolver());
         mModel = new PlanetModel(intent);
         PlanetSaveService.registerListener(saveServiceListener);
 
@@ -110,7 +110,7 @@ public class EditPlanetFragment extends Fragment {
                         BUNDLE_KEY_MODEL);
             }
             if (savedInstanceState.containsKey(BUNDLE_KEY_ORIGINAL_MODEL)) {
-                mOriginalModel = savedInstanceState.getParcelable(
+                mRestoreOriginalModel = savedInstanceState.getParcelable(
                         BUNDLE_KEY_ORIGINAL_MODEL);
             }
             if (savedInstanceState.containsKey(BUNDLE_KEY_INIT_STATE)) {
@@ -132,18 +132,20 @@ public class EditPlanetFragment extends Fragment {
                 R.layout.edit_planet, null);
         mView = new EditPlanetView(mActivity, view);
         mView.setViewListener(viewListener);
-        // TODO: add different activity labels for different events:
-        // Edit, Insert, Delete
+
         switch (mEvent.eventType) {
             case Intent.ACTION_EDIT:
+                mActivity.setTitle(getResources().getString(R.string.title_edit_planet));
                 mView.setOkButtonLabel(getResources().getString(R.string.save));
                 break;
 
             case Intent.ACTION_INSERT:
+                mActivity.setTitle(getResources().getString(R.string.title_insert_planet));
                 mView.setOkButtonLabel(getResources().getString(R.string.insert));
                 break;
 
             case Intent.ACTION_DELETE:
+                mActivity.setTitle(getResources().getString(R.string.title_delete_planet));
                 mView.setOkButtonLabel(getResources().getString(R.string.delete));
                 break;
 
@@ -237,6 +239,10 @@ public class EditPlanetFragment extends Fragment {
         }
     };
 
+    /**
+     * Listener for worker thread which queries view's initial data
+     * from ContentProvider
+     */
     private QueryHandler.Listener queryListener = new QueryHandler.Listener() {
 
         @Override
@@ -282,6 +288,9 @@ public class EditPlanetFragment extends Fragment {
         }
     };
 
+    /**
+     * Listener for service which updates/inserts planet in ContentProvider
+     */
     private PlanetSaveService.Listener saveServiceListener = new PlanetSaveService.Listener() {
 
         @Override
@@ -314,13 +323,16 @@ public class EditPlanetFragment extends Fragment {
         }
     };
 
-    DeletePlanetHelper.DeleteNotifyListener deleteNotifyListener =
+    private DeletePlanetHelper.DeleteNotifyListener deleteNotifyListener =
             new DeletePlanetHelper.DeleteNotifyListener() {
 
                 @Override
                 public void onDeleteStarted() {
-                    mView.setViewStates(Utils.MODIFY_UNINITIALIZED);
-                    mIsEditable = false;
+                    if (mActivity != null
+                            && !mActivity.isFinishing()) {
+                        mView.setViewStates(Utils.MODIFY_UNINITIALIZED);
+                        mIsEditable = false;
+                    }
                 }
             };
 
@@ -407,6 +419,9 @@ public class EditPlanetFragment extends Fragment {
         }
     }
 
+    /**
+     * Used for querying view's initial data from ContentProvider.
+     */
     private static class QueryHandler extends AsyncQueryHandler {
 
         public interface Listener {

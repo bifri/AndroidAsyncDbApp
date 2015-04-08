@@ -20,7 +20,7 @@ public class EditPlanetActivity extends Activity {
     private static final String TAG = EditPlanetActivity.class.getSimpleName();
 
     public static final String ACTIVITY_ID = "activityId";
-    public static final String KEY_ACTIVITY_ID = "activityId";
+    private static final String KEY_ACTIVITY_ID = "activityId";
 
     // Used for generating unique Activity Ids
     private static AtomicInteger mUniqueActivityId = new AtomicInteger(0);

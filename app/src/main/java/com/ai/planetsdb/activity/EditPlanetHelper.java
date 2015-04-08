@@ -46,7 +46,6 @@ public class EditPlanetHelper {
      *
      * @param model         The planet model to save
      * @param originalModel A model of the original planet if it exists
-     * @param modifyWhich   A modification status
      * @return true if the planet was successfully queued for saving
      */
     public boolean savePlanet(PlanetModel model, PlanetModel originalModel) {
@@ -92,6 +91,7 @@ public class EditPlanetHelper {
                     PlanetsContract.CONTENT_URI_PLANETS, values, Utils.UNDO_DELAY);*/
         } else {
 
+            assert originalModel != null;
             Intent intent = PlanetSaveService.createUpdatePlanetIntent(
                     mContext, uri, values, originalModel.mName,
                     mContext.getClass(), mContext.getActivityId(),

@@ -57,14 +57,6 @@ public class PlanetsDatabase extends SQLiteOpenHelper {
                 + DIAMETER + " REAL, "
                 + HAS_ATMOSPHERE + " INTEGER, "
                 + "UNIQUE (" + PLANET_NAME + ") ON CONFLICT ABORT)";
-/*        String CREATE_TABLE_PLANETS = "CREATE TABLE "
-                + TABLE_PLANETS + " ("
-                + _ID + " INTEGER PRIMARY KEY, "
-                + PLANET_NAME + " TEXT NOT NULL, "
-                + DISTANCE_FROM_EARTH + " REAL, "
-                + DISCOVERER + " TEXT, "
-                + DIAMETER + " REAL, "
-                + HAS_ATMOSPHERE + " INTEGER)";*/
         db.execSQL(CREATE_TABLE_PLANETS);
     }
 

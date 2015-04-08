@@ -10,7 +10,7 @@ public final class PlanetsContract {
     public static final String AUTHORITY = "com.ai.planetsdb.provider";
     static final String PATH_PLANETS = "planets";
 
-    static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY + "/");
+    private static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY + "/");
 
     public static final Uri CONTENT_URI_PLANETS =
             Uri.withAppendedPath(BASE_URI, PATH_PLANETS);

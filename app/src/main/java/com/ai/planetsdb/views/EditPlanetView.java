@@ -30,18 +30,15 @@ public class EditPlanetView {
     }
 
     @SuppressWarnings("UnusedDeclaration")
-    private static boolean DEBUG = false;
-    @SuppressWarnings("UnusedDeclaration")
     private static final String TAG = EditPlanetView.class.getSimpleName();
 
     private ArrayList<TextView> mEditViewList = new ArrayList<>();
 
-    private final View mRootView;
     private final ScrollView mScrollView;
     private final TextView mLoadingMessage;
     private final EditText mPlanetName, mDistance, mDiscoverer, mDiameter;
     private final CheckBox mAtmosphere;
-    private final Button mOkButton, mCancelButton;
+    private final Button mOkButton;
 
     private final Activity mActivity;
     private PlanetModel mModel;
@@ -60,16 +57,15 @@ public class EditPlanetView {
     public EditPlanetView(Activity activity, View rootView) {
         mActivity = activity;
 
-        mRootView = rootView;
-        mScrollView = (ScrollView) mRootView.findViewById(R.id.scroll_view);
-        mLoadingMessage = (TextView) mRootView.findViewById(R.id.loading_message);
-        mPlanetName = (EditText) mRootView.findViewById(R.id.details_editText_planetName);
-        mDistance = (EditText) mRootView.findViewById(R.id.details_editText_distance);
-        mDiscoverer = (EditText) mRootView.findViewById(R.id.details_editText_discoverer);
-        mDiameter = (EditText) mRootView.findViewById(R.id.details_editText_diameter);
-        mAtmosphere = (CheckBox) mRootView.findViewById(R.id.details_checkBox_atmosphere);
-        mOkButton = (Button) mRootView.findViewById(R.id.details_button_ok);
-        mCancelButton = (Button) mRootView.findViewById(R.id.details_button_cancel);
+        mScrollView = (ScrollView) rootView.findViewById(R.id.scroll_view);
+        mLoadingMessage = (TextView) rootView.findViewById(R.id.loading_message);
+        mPlanetName = (EditText) rootView.findViewById(R.id.details_editText_planetName);
+        mDistance = (EditText) rootView.findViewById(R.id.details_editText_distance);
+        mDiscoverer = (EditText) rootView.findViewById(R.id.details_editText_discoverer);
+        mDiameter = (EditText) rootView.findViewById(R.id.details_editText_diameter);
+        mAtmosphere = (CheckBox) rootView.findViewById(R.id.details_checkBox_atmosphere);
+        mOkButton = (Button) rootView.findViewById(R.id.details_button_ok);
+        Button mCancelButton = (Button) rootView.findViewById(R.id.details_button_cancel);
 
         mEditViewList.add(mPlanetName);
         mEditViewList.add(mDistance);
@@ -123,7 +119,7 @@ public class EditPlanetView {
             mScrollView.setVisibility(View.GONE);
             return;
         }
-        // TODO: is model fields check for null needed?
+
         mModel.consume(model);
         fillEditors(model);
 

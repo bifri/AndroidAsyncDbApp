@@ -32,14 +32,14 @@ public class PlanetSaveService extends IntentService {
     private static final String TAG = PlanetSaveService.class.getSimpleName();
     private static final long SLEEP_TIME = 5000L;
 
-    public static final String ACTION_INSERT_PLANET = "insert";
-    public static final String ACTION_UPDATE_PLANET = "edit";
-    public static final String ACTION_DELETE_PLANET = "delete";
+    private static final String ACTION_INSERT_PLANET = "insert";
+    private static final String ACTION_UPDATE_PLANET = "edit";
+    private static final String ACTION_DELETE_PLANET = "delete";
 
-    public static final String EXTRA_CONTENT_VALUES = "contentValues";
-    public static final String EXTRA_PLANET_INIT_NAME = "initName";
+    private static final String EXTRA_CONTENT_VALUES = "contentValues";
+    private static final String EXTRA_PLANET_INIT_NAME = "initName";
+    private static final String EXTRA_CALLBACK_INTENT = "callbackIntent";
     public static final String EXTRA_SERVICE_SUCCEEDED = "saveSucceeded";
-    public static final String EXTRA_CALLBACK_INTENT = "callbackIntent";
 
     public interface Listener {
         public void onServiceCompleted(Intent callbackIntent);
