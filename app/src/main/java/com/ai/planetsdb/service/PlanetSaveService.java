@@ -30,7 +30,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class PlanetSaveService extends IntentService {
     private static final String TAG = PlanetSaveService.class.getSimpleName();
-    private static final long SLEEP_TIME = 5000L;
+    private static final boolean DEBUG = true;
+
+    private static final long DEBUG_SLEEP_TIME = 5000L;
 
     private static final String ACTION_INSERT_PLANET = "insert";
     private static final String ACTION_UPDATE_PLANET = "edit";
@@ -119,11 +121,14 @@ public class PlanetSaveService extends IntentService {
     }
 
     private void insertPlanet(Intent intent) {
-        try {
-            Thread.sleep(SLEEP_TIME);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (DEBUG) {
+            try {
+                Thread.sleep(DEBUG_SLEEP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
         final ContentResolver resolver = getContentResolver();
 
         ContentValues values = intent.getParcelableExtra(
@@ -209,10 +214,12 @@ public class PlanetSaveService extends IntentService {
     }
 
     private void updatePlanet(Intent intent) {
-        try {
-            Thread.sleep(SLEEP_TIME);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (DEBUG) {
+            try {
+                Thread.sleep(DEBUG_SLEEP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         final ContentResolver resolver = getContentResolver();
 
@@ -306,11 +313,14 @@ public class PlanetSaveService extends IntentService {
     }
 
     private void deletePlanet(Intent intent) {
-        try {
-            Thread.sleep(SLEEP_TIME);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (DEBUG) {
+            try {
+                Thread.sleep(DEBUG_SLEEP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
         Uri contactUri = intent.getData();
         if (contactUri == null) {
             Log.e(TAG, "Invalid arguments for deletePlanet request");
