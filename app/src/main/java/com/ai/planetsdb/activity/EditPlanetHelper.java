@@ -87,7 +87,7 @@ public class EditPlanetHelper {
 
             mContext.startService(intent);
 
-/*            mService.startInsert(mService.getNextToken(), null,
+/*          mService.startInsert(mService.getNextToken(), null,
                     PlanetsContract.CONTENT_URI_PLANETS, values, Utils.UNDO_DELAY);*/
         } else {
 
@@ -99,7 +99,7 @@ public class EditPlanetHelper {
 
             mContext.startService(intent);
 
-/*            mService.startUpdate(mService.getNextToken(), null, uri, values,
+/*          mService.startUpdate(mService.getNextToken(), null, uri, values,
                     null, null, Utils.UNDO_DELAY);*/
         }
 

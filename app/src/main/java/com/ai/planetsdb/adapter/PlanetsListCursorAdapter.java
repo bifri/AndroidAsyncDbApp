@@ -48,28 +48,38 @@ public class PlanetsListCursorAdapter extends CursorAdapter {
         int column = cursor.getColumnIndexOrThrow(PlanetsContract.PLANET_NAME);
         if (!cursor.isNull(column)) {
             holder.planetName.setText(cursor.getString(column));
+        } else {
+            holder.planetName.setText("");
         }
 
         column = cursor.getColumnIndexOrThrow(PlanetsContract.DISTANCE_FROM_EARTH);
         if (!cursor.isNull(column)) {
             holder.distance.setText(String.format("%,.0f", cursor.getDouble(column)));
+        } else {
+            holder.distance.setText("");
         }
 
         column = cursor.getColumnIndexOrThrow(PlanetsContract.DISCOVERER);
         if (!cursor.isNull(column)) {
             holder.discoverer.setText(cursor.getString(column));
+        } else {
+            holder.discoverer.setText("");
         }
 
         column = cursor.getColumnIndexOrThrow(PlanetsContract.DIAMETER);
         if (!cursor.isNull(column)) {
             holder.diameter.setText(String.format("%,.0f", cursor.getDouble(column)));
+        } else {
+            holder.diameter.setText("");
         }
 
         column = cursor.getColumnIndexOrThrow(PlanetsContract.HAS_ATMOSPHERE);
-            if (!cursor.isNull(column)) {
-                boolean hasAtmosphere = cursor.getInt(column) > 0;
-                holder.atmosphere.setText(hasAtmosphere ? "yes" : "no");
-            }
+        if (!cursor.isNull(column)) {
+            boolean hasAtmosphere = cursor.getInt(column) > 0;
+            holder.atmosphere.setText(hasAtmosphere ? "yes" : "no");
+        } else {
+            holder.atmosphere.setText("no");
+        }
     }
 
     private static class ViewHolder {
